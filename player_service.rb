@@ -2,8 +2,17 @@ require 'sinatra'
 require 'json'
 require_relative 'player'
 
+require 'logger'
+
 set :port, 8090
 set :bind, '0.0.0.0'
+
+logger = Logger.new($stderr)
+
+get '/' do
+  logger.warn 'hello, stderr'
+  'wibble'
+end
 
 post "/" do
   if params[:action] == 'bet_request'
