@@ -5,3 +5,5 @@ gem 'rspec'
 gem 'bundler'
 gem 'rake'
 gem 'sinatra'
+
+gem "puma", "~> 5.6"
