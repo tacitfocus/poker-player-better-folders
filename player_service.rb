@@ -4,7 +4,7 @@ require_relative 'player'
 
 require 'logger'
 
-set :port, 8090
+set :port, ENV["PORT"]
 set :bind, '0.0.0.0'
 
 logger = Logger.new($stderr)
