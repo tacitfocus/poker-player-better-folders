@@ -6,7 +6,7 @@ class Player
 
   def bet_request(game_state)
     in_action_id = game_state["in_action"]
-    our_player = players.detect { |e| e["id"] == in_action_id }
+    our_player = game_state["players"].detect { |e| e["id"] == in_action_id }
     all_in_baby(our_player)
   end
 
