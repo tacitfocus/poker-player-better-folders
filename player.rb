@@ -7,9 +7,7 @@ class Player
   def bet_request(game_state)
     in_action_id = game_state["in_action"]
     our_player = players.detect { |e| e["id"] == in_action_id }
-    fat_stack = our_player["stack"].to_i
-
-    return fat_stack # all in, baby
+    all_in_baby(our_player)
   end
 
   def showdown(game_state)
@@ -17,6 +15,13 @@ class Player
   end
 
   private
+
+
+  def all_in_baby(player)
+    fat_stack = player["stack"].to_i
+    return fat_stack
+  end
+
 
   def logger
     @_logger ||= Logger.new($stderr)
