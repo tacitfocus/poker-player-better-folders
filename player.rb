@@ -8,6 +8,9 @@ class Player
     in_action_id = game_state["in_action"]
     our_player = game_state["players"].detect { |e| e["id"] == in_action_id }
     all_in_baby(our_player)
+  rescue StandardError => e
+    logger.fatal e.class.to_s + "  " + e.message + "  " + e.backtrace[0..3]
+    0
   end
 
   def showdown(game_state)
