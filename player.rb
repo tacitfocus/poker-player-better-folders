@@ -7,7 +7,7 @@ class Player
 
   VERSION = "Default Ruby folding player"
 
-  CURRENT_STRATEGY = :all_in_baby
+  CURRENT_STRATEGY = :high_card_or_fold
 
   def bet_request(game_state)
     in_action_id = game_state["in_action"]
@@ -25,6 +25,15 @@ class Player
   def all_in_baby(player_data)
     fat_stack = player_data["stack"].to_i
     return fat_stack
+  end
+
+  def high_card_or_fold(player_data)
+    high_card = score_hand_v1(player_data)
+    if high_card >= 12
+      all_in_baby(player_data)
+    else
+      0
+    end
   end
 
   def score_hand_v1(player_data)
