@@ -1,6 +1,6 @@
 require_relative "../player"
 
-RSpec.describe "stuff" do
+RSpec.describe Player do
 
   describe "chen's algorithm" do
     subject { Chen.new }

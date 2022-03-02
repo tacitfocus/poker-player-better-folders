@@ -1,4 +1,7 @@
 require 'logger'
+require 'json'
+
+require_relative 'chen'
 
 class Player
 
@@ -16,13 +19,16 @@ class Player
   end
 
   def showdown(game_state)
-
   end
 
 
-  def all_in_baby(player)
-    fat_stack = player["stack"].to_i
+  def all_in_baby(player_data)
+    fat_stack = player_data["stack"].to_i
     return fat_stack
+  end
+
+  def score_hand_v1(player_data)
+    player_data["hole_cards"].map { |e| Chen.new.rank_value(e["rank"]) }.max
   end
 
   private
