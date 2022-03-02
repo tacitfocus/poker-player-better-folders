@@ -28,5 +28,10 @@ class Chen
     RANKS.fetch(x) { x.to_i }
   end
 
+  def gap(a, b)
+    x, y = [ a, b ].map { |e| rank_value(e) }
+    (x-y).abs
+  end
+
 end
 

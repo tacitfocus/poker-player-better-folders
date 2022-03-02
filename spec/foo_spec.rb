@@ -52,3 +52,24 @@ EOF
   end
 
 end
+
+RSpec.describe Chen do
+
+  describe "gap" do
+    it "answers 0 if the ranks are the same" do
+      expect( subject.gap( "K", "K" ) ).to eq( 0 )
+    end
+
+    it "answers 1 if the ranks are one apart" do
+      expect( subject.gap( "Q", "K" ) ).to eq( 1 )
+      expect( subject.gap( "K", "Q" ) ).to eq( 1 )
+    end
+
+    it "answers the delta if the ranks are more than one apart" do
+      expect( subject.gap( "7", "Q" ) ).to eq( 5 )
+      expect( subject.gap( "Q", "7" ) ).to eq( 5 )
+    end
+
+  end
+
+end
