@@ -23,31 +23,28 @@ class Player
 
 
   def all_in_baby
-    fat_stack = player_data["stack"].to_i
-    return fat_stack
+    return stack
   end
 
   def high_card_or_fold
-    high_card = score_hand_v1(player_data)
+    high_card = score_hand_v1
     if high_card >= 12
-      all_in_baby(player_data)
+      all_in_baby
     else
       0
     end
   end
 
   def computer_hand
-    the_gap = Chen.gap( *hole_cards.map { |e| e["rank"] } )
-    return stack if the_gap.zero?
+    gap = Chen.gap( *hole_cards.map { |e| e["rank"] } )
+    return stack if gap.zero?
 
-    high_card_or_fold # temporarily
-
-    # high_card = score_hand_v1(player_data)
-    # if high_card >= 12
-    #   all_in_baby(player_data)
-    # else
-    #   0
-    # end
+    high_card = score_hand_v1
+    if high_card >= 12 && gap <= 5
+      all_in_baby
+    else
+      0
+    end
   end
 
   def score_hand_v1

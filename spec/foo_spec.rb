@@ -79,8 +79,48 @@ EOF
       end
     end
 
-    context "when gap is five (or less) and high card is Q"
-    context "when gap is five (ish?) and high card is < Q"
+    context "when gap is five (or less) and high card is Q" do
+      let(:player_data) {
+        {
+          "id"         => 1,
+          "name"       => "Bob",
+          "status"     => "active",
+          "version"    => "Default random player",
+          "stack"      => 1590,
+          "bet"        => 80,
+          "hole_cards" => [
+            { "rank" => "Q", "suit" => "hearts" },
+            { "rank" => "7", "suit" => "spades" }
+          ]
+        }
+      }
+
+      it "goes all in" do
+        expect( subject.computer_hand ).to eq( 100 )
+      end
+    end
+
+    context "when gap is six (or more) and high card is < Q" do
+      let(:player_data) {
+        {
+          "id"         => 1,
+          "name"       => "Bob",
+          "status"     => "active",
+          "version"    => "Default random player",
+          "stack"      => 1590,
+          "bet"        => 80,
+          "hole_cards" => [
+            { "rank" => "Q", "suit" => "hearts" },
+            { "rank" => "6", "suit" => "spades" }
+          ]
+        }
+      }
+
+      it "folds" do
+        expect( subject.computer_hand ).to eq( 0 )
+      end
+    end
+
     context "when gap is not five"
 
   end
