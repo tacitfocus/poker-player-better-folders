@@ -14,7 +14,8 @@ function Chen(C 1 , C 2 )
 return score / 20
 =end
 
-class Chen
+module Chen
+  extend self
 
   RANKS = {
     "T" => 10,

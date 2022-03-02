@@ -3,7 +3,7 @@ require_relative "../player"
 RSpec.describe Player do
 
   describe "chen's algorithm" do
-    subject { Chen.new }
+    subject { Chen }
 
     describe "#rank_value" do
       def invoke!(x)
@@ -47,13 +47,48 @@ player = JSON.parse(<<~EOF)
     ]
 }
 EOF
-      expect( subject.score_hand_v1(player) ).to eq( 13 )
+      allow( subject ).to receive(:player_data).and_return( player )
+      expect( subject.score_hand_v1 ).to eq( 13 )
     end
+  end
+
+  describe "computer_hand" do
+    before do
+      allow(subject).to receive(:stack).and_return( 100 )
+      allow(subject).to receive(:player_data).and_return( player_data )
+    end
+
+    context "when gap is zero" do
+      let(:player_data) {
+        {
+          "id"         => 1,
+          "name"       => "Bob",
+          "status"     => "active",
+          "version"    => "Default random player",
+          "stack"      => 1590,
+          "bet"        => 80,
+          "hole_cards" => [
+            { "rank" => "6", "suit" => "hearts" },
+            { "rank" => "6", "suit" => "spades" }
+          ]
+        }
+      }
+
+      it "goes all in" do
+        expect( subject.computer_hand ).to eq( 100 )
+      end
+    end
+
+    context "when gap is five (or less) and high card is Q"
+    context "when gap is five (ish?) and high card is < Q"
+    context "when gap is not five"
+
   end
 
 end
 
 RSpec.describe Chen do
+  subject { Chen }
 
   describe "gap" do
     it "answers 0 if the ranks are the same" do
