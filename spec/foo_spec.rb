@@ -174,6 +174,10 @@ EOF
     end
   end
 
+  describe "Chen's hand" do
+
+  end
+
 end
 
 RSpec.describe Chen do

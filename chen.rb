@@ -17,6 +17,11 @@ return score / 20
 module Chen
   extend self
 
+  def self.call(hole_cards)
+    score = hole_cards.map { |e| chen_value(e["rank"]) }.max
+  end
+
+
   RANKS = {
     "T" => 10,
     "J" => 11,
