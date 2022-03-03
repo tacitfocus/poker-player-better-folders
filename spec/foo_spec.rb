@@ -5,6 +5,26 @@ RSpec.describe Player do
   describe "chen's algorithm" do
     subject { Chen }
 
+    describe "#chen_value" do
+      def invoke!(x)
+        subject.chen_value(x)
+      end
+
+      it "answers 1 for a deuce" do
+        expect( invoke!("2") ).to eq( 1 )
+      end
+
+      it "answers 1 for a trey" do
+        expect( invoke!("3") ).to eq( 1 )
+      end
+
+      it "answers 5 for a T" do ; expect( invoke!("T") ).to eq( 5 ) ; end
+      it "answers 6 for a J" do ; expect( invoke!("J") ).to eq( 6 ) ; end
+      it "answers 7 for a Q" do ; expect( invoke!("Q") ).to eq( 7 ) ; end
+      it "answers 8 for a K" do ; expect( invoke!("K") ).to eq( 8 ) ; end
+      it "answers 10 for a A" do ; expect( invoke!("A") ).to eq( 10 ) ; end
+    end
+
     describe "#rank_value" do
       def invoke!(x)
         subject.rank_value(x)

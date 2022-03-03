@@ -29,6 +29,18 @@ module Chen
     RANKS.fetch(x) { x.to_i }
   end
 
+  CHEN_RANKS = {
+    "T" => 5,
+    "J" => 6,
+    "Q" => 7,
+    "K" => 8,
+    "A" => 10,
+  }
+
+  def chen_value(x)
+    CHEN_RANKS.fetch(x) { x.to_i / 2 }
+  end
+
   def gap(a, b)
     x, y = [ a, b ].map { |e| rank_value(e) }
     (x-y).abs
