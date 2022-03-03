@@ -20,6 +20,16 @@ RSpec.describe Player do
       it "answers 13 for a K" do ; expect( invoke!("K") ).to eq( 13 ) ; end
       it "answers 14 for a A" do ; expect( invoke!("A") ).to eq( 14 ) ; end
     end
+
+    describe "#same_suit" do
+      def invoke2!(x,y)
+        subject.same_suit?(x,y)
+      end
+
+      it "answers true when cards are of same suit" do
+        expect(invoke2!("hearts","hearts")).to eq(true)
+      end
+    end
   end
 
   describe "#score_hand_v1" do
@@ -27,25 +37,25 @@ RSpec.describe Player do
       player = {
       }
 player = JSON.parse(<<~EOF)
-{
-    "id": 1,                                // Your own player looks similar, with one extension.
-    "name": "Bob",
-    "status": "active",
-    "version": "Default random player",
-    "stack": 1590,
-    "bet": 80,
-    "hole_cards": [                         // The cards of the player. This is only visible for your own player
-                                            //     except after showdown, when cards revealed are also included.
         {
-            "rank": "6",                    // Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
-            "suit": "hearts"                // Suit of the card. Possible values are: clubs,spades,hearts,diamonds
-        },
-        {
-            "rank": "K",
-            "suit": "spades"
+            "id": 1,                                // Your own player looks similar, with one extension.
+            "name": "Bob",
+            "status": "active",
+            "version": "Default random player",
+            "stack": 1590,
+            "bet": 80,
+            "hole_cards": [                         // The cards of the player. This is only visible for your own player
+                                                    //     except after showdown, when cards revealed are also included.
+                {
+                    "rank": "6",                    // Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+                    "suit": "hearts"                // Suit of the card. Possible values are: clubs,spades,hearts,diamonds
+                },
+                {
+                    "rank": "K",
+                    "suit": "spades"
+                }
+            ]
         }
-    ]
-}
 EOF
       allow( subject ).to receive(:player_data).and_return( player )
       expect( subject.score_hand_v1 ).to eq( 13 )
@@ -120,21 +130,28 @@ EOF
         expect( subject.computer_hand ).to eq( 0 )
       end
     end
-  end
 
-  ########################################################################################
-  ##                                                                                    ##
-  ##    #####     ######    ##    ##  ########  ########  ##    ##  ##    ##  ########  ##
-  ##   ##   ##   ##    ##   ###   ##     ##        ##     ###   ##  ##    ##  ##        ##
-  ##  ##        ##      ##  ####  ##     ##        ##     ####  ##  ##    ##  ##        ##
-  ##  ##        ##      ##  ## ## ##     ##        ##     ## ## ##  ##    ##  ######    ##
-  ##  ##        ##      ##  ##  ####     ##        ##     ##  ####  ##    ##  ##        ##
-  ##   ##   ##   ##    ##   ##   ###     ##        ##     ##   ###  ##    ##  ##        ##
-  ##    #####     ######    ##    ##     ##     ########  ##    ##   ######   ########  ##
-  ##                                                                                    ##
-  ########################################################################################
-  # check for flush
-  ########################################################################################
+    xcontext "When detecting a potential flush" do
+      let(:player_data) {
+        {
+          "id"         => 1,
+          "name"       => "Bob",
+          "status"     => "active",
+          "version"    => "Default random player",
+          "stack"      => 1590,
+          "bet"        => 80,
+          "hole_cards" => [
+            { "rank" => "Q", "suit" => "hearts" },
+            { "rank" => "6", "suit" => "spades" }
+          ]
+        }
+      }
+
+      it "goes all in" do
+        expect( subject.computer_hand ).to eq( 100 )
+      end
+    end
+  end
 
 end
 

@@ -34,5 +34,9 @@ module Chen
     (x-y).abs
   end
 
+  def same_suit?(suit1, suit2)
+    suit1 == suit2
+  end
+
 end
 
