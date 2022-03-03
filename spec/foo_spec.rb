@@ -63,8 +63,9 @@ EOF
   end
 
   describe "computer_hand" do
+    STACK_SIZE = 100
     before do
-      allow(subject).to receive(:stack).and_return( 100 )
+      allow(subject).to receive(:stack).and_return( STACK_SIZE )
       allow(subject).to receive(:player_data).and_return( player_data )
     end
 
@@ -131,7 +132,7 @@ EOF
       end
     end
 
-    xcontext "When detecting a potential flush" do
+    context "When detecting a potential flush" do
       let(:player_data) {
         {
           "id"         => 1,
@@ -141,7 +142,7 @@ EOF
           "stack"      => 1590,
           "bet"        => 80,
           "hole_cards" => [
-            { "rank" => "Q", "suit" => "hearts" },
+            { "rank" => "Q", "suit" => "spades" },
             { "rank" => "6", "suit" => "spades" }
           ]
         }

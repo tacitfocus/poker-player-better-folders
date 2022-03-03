@@ -40,7 +40,10 @@ class Player
     return stack if gap.zero?
 
     high_card = score_hand_v1
-    if high_card >= 12 && gap <= 5
+    case
+    when high_card >= 12 && gap <= 5
+      all_in_baby
+    when Chen.same_suit?( *hole_cards.map { |e| e["suit"] } )
       all_in_baby
     else
       0
