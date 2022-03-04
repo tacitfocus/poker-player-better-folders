@@ -37,14 +37,14 @@ class Player
   end
 
   def computer_hand
-    gap = Chen.gap( *hole_cards.map { |e| e["rank"] } )
+    gap = Chen.gap( *hole_cards.map(&:rank) )
     return stack if gap.zero?
 
     high_card = score_hand_v1
     case
     when high_card >= 12 && gap <= 5
       all_in_baby
-    when Chen.same_suit?( *hole_cards.map { |e| e["suit"] } )
+    when Chen.same_suit?( *hole_cards.map(&:suit) )
       all_in_baby
     else
       0
@@ -52,7 +52,7 @@ class Player
   end
 
   def score_hand_v1
-    hole_cards.map { |e| Card.rank_value(e["rank"]) }.max
+    hole_cards.map(&:rank).max
   end
 
   private
@@ -60,7 +60,7 @@ class Player
   attr_reader :player_data
 
   def hole_cards
-    player_data["hole_cards"]
+    player_data["hole_cards"].map { |e| Card.new(e) }
   end
 
   def stack
