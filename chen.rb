@@ -1,3 +1,5 @@
+require_relative 'card'
+
 =begin
 function Chen(C 1 , C 2 )
     score := Max(rv(C 1 ), rv(C 2 ))
@@ -22,18 +24,6 @@ module Chen
   end
 
 
-  RANKS = {
-    "T" => 10,
-    "J" => 11,
-    "Q" => 12,
-    "K" => 13,
-    "A" => 14,
-  }
-
-  def rank_value(x)
-    RANKS.fetch(x) { x.to_i }
-  end
-
   CHEN_RANKS = {
     "T" => 5,
     "J" => 6,
@@ -47,7 +37,7 @@ module Chen
   end
 
   def gap(a, b)
-    x, y = [ a, b ].map { |e| rank_value(e) }
+    x, y = [ a, b ].map { |e| Card.rank_value(e) }
     (x-y).abs
   end
 

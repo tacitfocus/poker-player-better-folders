@@ -2,6 +2,7 @@ require 'logger'
 require 'json'
 
 require_relative 'chen'
+require_relative 'card'
 
 class Player
 
@@ -51,7 +52,7 @@ class Player
   end
 
   def score_hand_v1
-    hole_cards.map { |e| Chen.rank_value(e["rank"]) }.max
+    hole_cards.map { |e| Card.rank_value(e["rank"]) }.max
   end
 
   private
