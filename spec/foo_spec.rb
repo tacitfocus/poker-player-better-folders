@@ -65,7 +65,7 @@ RSpec.describe Player do
       end
     end
 
-    context "when gap is five (or less) and high card is Q" do
+    context "when gap is five^WFOUR (or less) and high card is Q" do
       let(:player_data) {
         {
           "id"         => 1,
@@ -76,7 +76,7 @@ RSpec.describe Player do
           "bet"        => 80,
           "hole_cards" => [
             { "rank" => "Q", "suit" => "hearts" },
-            { "rank" => "7", "suit" => "spades" }
+            { "rank" => "8", "suit" => "spades" }
           ]
         }
       }
