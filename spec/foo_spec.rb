@@ -37,36 +37,6 @@ RSpec.describe Player do
     end
   end
 
-  describe "#score_hand_v1" do
-    it "returns 13 when given a hand containing a K and a 5" do
-      player = {
-      }
-player = JSON.parse(<<~EOF)
-        {
-            "id": 1,                                // Your own player looks similar, with one extension.
-            "name": "Bob",
-            "status": "active",
-            "version": "Default random player",
-            "stack": 1590,
-            "bet": 80,
-            "hole_cards": [                         // The cards of the player. This is only visible for your own player
-                                                    //     except after showdown, when cards revealed are also included.
-                {
-                    "rank": "6",                    // Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
-                    "suit": "hearts"                // Suit of the card. Possible values are: clubs,spades,hearts,diamonds
-                },
-                {
-                    "rank": "K",
-                    "suit": "spades"
-                }
-            ]
-        }
-EOF
-      allow( subject ).to receive(:player_data).and_return( player )
-      expect( subject.score_hand_v1 ).to eq( 13 )
-    end
-  end
-
   describe "computer_hand" do
     STACK_SIZE = 100
     before do

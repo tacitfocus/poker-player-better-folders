@@ -27,32 +27,23 @@ class Player
     return stack
   end
 
-  def high_card_or_fold
-    high_card = score_hand_v1
-    if high_card >= 12
-      all_in_baby
-    else
-      0
-    end
+  def fold
+    0
   end
 
   def computer_hand
     gap = Chen.gap( *hole_cards.map(&:rank) )
     return stack if gap.zero?
 
-    high_card = score_hand_v1
+    high_card = hole_cards.map(&:rank).max
     case
     when high_card >= 12 && gap <= 5
       all_in_baby
     when Chen.same_suit?( *hole_cards.map(&:suit) )
       all_in_baby
     else
-      0
+      fold
     end
-  end
-
-  def score_hand_v1
-    hole_cards.map(&:rank).max
   end
 
   private
