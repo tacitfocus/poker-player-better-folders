@@ -3,6 +3,7 @@ require 'json'
 
 require_relative 'chen'
 require_relative 'card'
+require_relative 'hand'
 
 class Player
 
@@ -32,9 +33,9 @@ class Player
   end
 
   def computer_hand
-    gap = Chen.gap( *hole_cards.map(&:rank) )
-    return stack if gap.zero?
+    return stack if hand.pair?
 
+    gap = Chen.gap( *hole_cards.map(&:rank) )
     high_card = hole_cards.map(&:rank).max
     case
     when high_card >= 12 && gap <= 5
@@ -50,8 +51,12 @@ class Player
 
   attr_reader :player_data
 
+  def hand
+    @_hand ||= Hand.new( *hole_cards )
+  end
+
   def hole_cards
-    player_data["hole_cards"].map { |e| Card.new(e) }
+    @_hole_cards ||= player_data["hole_cards"].map { |e| Card.new(e) }
   end
 
   def stack

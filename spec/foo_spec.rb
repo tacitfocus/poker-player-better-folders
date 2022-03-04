@@ -153,6 +153,8 @@ RSpec.describe Chen do
 
 end
 
+
+
 RSpec.describe Card do
   describe ".rank_value" do
     def invoke!(x)
@@ -175,4 +177,30 @@ RSpec.describe Card do
     expect( card.suit ).to eq( "spades" )
     expect( card.rank ).to eq( 12 )
   end
+end
+
+
+RSpec.describe Hand do
+  def card(rank, suit)
+    Card.new( { "rank" => rank, "suit" => suit } )
+  end
+  let(:ace_spades) {  }
+
+  describe "#pair?" do
+    it "answers true when the cards have the same rank" do
+      c1 = card( "A", "spades" )
+      c2 = card( "A", "clubs" )
+      hand = Hand.new( c1, c2 )
+      expect( hand ).to be_pair
+    end
+
+    it "answers false when the cards have different rank" do
+      c1 = card( "A", "spades" )
+      c2 = card( "K", "clubs" )
+      hand = Hand.new( c1, c2 )
+      expect( hand ).to_not be_pair
+    end
+
+  end
+
 end
