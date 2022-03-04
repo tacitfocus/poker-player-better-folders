@@ -33,18 +33,11 @@ class Player
   end
 
   def computer_hand
-    case
-    when hand.pair?
-      all_in_baby
-    when hand.high_card >= 13
-      all_in_baby
-    when hand.high_card >= 12 && hand.gap <= 4
-      all_in_baby
-    when hand.suited?
-      all_in_baby
-    else
-      fold
-    end
+    return all_in_baby if hand.pair?
+    return all_in_baby if hand.high_card >= 13
+    return all_in_baby if hand.high_card >= 12 && hand.gap <= 4
+    return all_in_baby if hand.suited?
+    fold
   end
 
   private

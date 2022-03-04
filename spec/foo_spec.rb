@@ -24,17 +24,6 @@ RSpec.describe Player do
       it "answers 8 for a K" do ; expect( invoke!("K") ).to eq( 8 ) ; end
       it "answers 10 for a A" do ; expect( invoke!("A") ).to eq( 10 ) ; end
     end
-
-
-    describe "#same_suit" do
-      def invoke2!(x,y)
-        subject.same_suit?(x,y)
-      end
-
-      it "answers true when cards are of same suit" do
-        expect(invoke2!("hearts","hearts")).to eq(true)
-      end
-    end
   end
 
   describe "computer_hand" do
@@ -131,29 +120,6 @@ RSpec.describe Player do
 
 end
 
-RSpec.describe Chen do
-  subject { Chen }
-
-  describe "gap" do
-    it "answers 0 if the ranks are the same" do
-      expect( subject.gap( "K", "K" ) ).to eq( 0 )
-    end
-
-    it "answers 1 if the ranks are one apart" do
-      expect( subject.gap( "Q", "K" ) ).to eq( 1 )
-      expect( subject.gap( "K", "Q" ) ).to eq( 1 )
-    end
-
-    it "answers the delta if the ranks are more than one apart" do
-      expect( subject.gap( "7", "Q" ) ).to eq( 5 )
-      expect( subject.gap( "Q", "7" ) ).to eq( 5 )
-    end
-
-  end
-
-end
-
-
 
 RSpec.describe Card do
   describe ".rank_value" do
@@ -200,7 +166,28 @@ RSpec.describe Hand do
       hand = Hand.new( c1, c2 )
       expect( hand ).to_not be_pair
     end
-
   end
 
+  describe "gap" do
+    it "answers 0 if the ranks are the same" do
+      c1 = card( "A", "spades" )
+      c2 = card( "A", "clubs" )
+      hand = Hand.new( c1, c2 )
+      expect( hand.gap ).to eq( 0 )
+    end
+
+    it "answers 1 if the ranks are one apart" do
+      c1 = card( "A", "spades" )
+      c2 = card( "K", "clubs" )
+      hand = Hand.new( c1, c2 )
+      expect( hand.gap ).to eq( 1 )
+    end
+
+    it "answers the delta if the ranks are more than one apart" do
+      c1 = card( "A", "spades" )
+      c2 = card( "Q", "clubs" )
+      hand = Hand.new( c1, c2 )
+      expect( hand.gap ).to eq( 2 )
+    end
+  end
 end
