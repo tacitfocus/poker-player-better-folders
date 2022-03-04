@@ -33,11 +33,11 @@ class Player
   end
 
   def computer_hand
-    return stack if hand.pair?
-
     gap = Chen.gap( *hole_cards.map(&:rank) )
     high_card = hole_cards.map(&:rank).max
     case
+    when hand.pair?
+      all_in_baby
     when high_card >= 12 && gap <= 4
       all_in_baby
     when Chen.same_suit?( *hole_cards.map(&:suit) )
