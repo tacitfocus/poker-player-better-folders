@@ -36,6 +36,8 @@ class Player
     case
     when hand.pair?
       all_in_baby
+    when hand.high_card >= 13
+      all_in_baby
     when hand.high_card >= 12 && hand.gap <= 4
       all_in_baby
     when hand.suited?
