@@ -36,14 +36,5 @@ module Chen
     CHEN_RANKS.fetch(x) { x.to_i / 2 }
   end
 
-  def gap(a, b)
-    x, y = [ a, b ].map { |e| Card.rank_value(e) }
-    (x-y).abs
-  end
-
-  def same_suit?(suit1, suit2)
-    suit1 == suit2
-  end
-
 end
 

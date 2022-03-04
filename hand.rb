@@ -4,17 +4,20 @@ class Hand
   end
 
   def pair?
-    @cards.map(&:rank).uniq.length == 1
+    ranks.uniq.length == 1
   end
 
   def suited?
-    @cards.map(&:suit).uniq.length == 1
+    suits.uniq.length == 1
   end
 
   def gap
     high_card - low_card
   end
 
-  def low_card  ; @cards.map(&:rank).min ; end
-  def high_card ; @cards.map(&:rank).max ; end
+  def low_card  ; ranks.min ; end
+  def high_card ; ranks.max ; end
+
+  def ranks ; @cards.map(&:rank) ; end
+  def suits ; @cards.map(&:suit) ; end
 end
