@@ -33,14 +33,12 @@ class Player
   end
 
   def computer_hand
-    high_card = hole_cards.map(&:rank).max
-
     case
     when hand.pair?
       all_in_baby
-    when high_card >= 12 && hand.gap <= 4
+    when hand.high_card >= 12 && hand.gap <= 4
       all_in_baby
-    when Chen.same_suit?( *hole_cards.map(&:suit) )
+    when hand.suited?
       all_in_baby
     else
       fold

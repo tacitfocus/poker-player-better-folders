@@ -7,8 +7,14 @@ class Hand
     @cards.map(&:rank).uniq.length == 1
   end
 
-  def gap
-    lo, hi = *@cards.map(&:rank).minmax
-    hi - lo
+  def suited?
+    @cards.map(&:suit).uniq.length == 1
   end
+
+  def gap
+    high_card - low_card
+  end
+
+  def low_card  ; @cards.map(&:rank).min ; end
+  def high_card ; @cards.map(&:rank).max ; end
 end
